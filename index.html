@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form>
+
+        <label for="names" style="font-size:20px;">Imie i nazwisko:</label>
+        <input type="text" id="names" placeholder="text text"  autocomplete="off">* <br>
+
+        <label for="email" style="font-size:20px;">Email:</label>
+        <input type="email" id="email" placeholder="text@text.text" autocomplete="off">* <br>
+
+        <label for="ocena" style="font-size:20px;">Ocena:</label>
+        <input type="number" id="ocena" autocomplete="off" >* <br>
+
+        <label for="data" style="font-size:20px;">Data:</label>
+        <input type="datetime-local" id="data" autocomplete="off">* <br>
+        
+        <input type="submit" value="wyslij"id="submit">
+        <input type="reset" id="reset">
+      </form>
+    <script>
+        /*sekcja imie*/
+//zmienne
+let imie = document.getElementById('names');
+
+
+//funckje
+imie.addEventListener("input", () =>
+{
+    let imieRegex = /[a-z]{1,10}/g;
+    let imieNRegex = /[a-z]{1,10}\s[a-z]{1,10}/g;
+    if(imieNRegex.test(imie.value)==true){
+        imie.setCustomValidity('')
+    }
+    else if(imieRegex.test(imie.value) == true)
+    {
+        imie.setCustomValidity("samo imie nie wystarczy")
+    }
+
+})
+
+/*sekcja email*/
+
+//zmienne
+let email = document.getElementById("email");
+
+//funckje
+email.addEventListener("input", () =>{
+    let emailRegex = /[a-z]{2,3}\@[a-z]{2,5}\.[a-z]{2,3}/g;
+    if(emailRegex.test(email.value)==true)
+    {
+        email.setCustomValidity("")
+    } 
+    else{
+        email.setCustomValidity("Wpisano niepoprawnie email")
+    }
+    if(!email.value.includes("@")){
+        email.setCustomValidity("Uwzglednij znak '@' w adresie email. W adresie '"+email.value+"' brakuje znaku '@'")
+    }
+    if(email.value.includes("@")&&!email.value.includes(".")){
+        email.setCustomValidity("Podaj czesc po znaku '@'. Adres '"+email.value+"' jest niepełny")
+    }
+})
+
+/* sekcja ocena*/
+
+//zmienna
+let ocena = document.getElementById("ocena")
+
+//funkcja
+ocena.addEventListener("input", () =>{
+    let ocenaRegex = /[0-6]/g;
+    if(ocenaRegex.test(ocena.value)==true)
+    {
+        ocena.setCustomValidity("")
+    }else
+    {
+        ocena.setCustomValidity("Wartosc nie powinna byc wieksza niz 6")
+    }
+})
+
+/* data*/
+//zmienne
+let data = document.getElementById("data")
+
+
+/*przyciski*/
+//submit 
+document.getElementById("submit").addEventListener("click", function submit(){
+    if(imie.value==""){
+        imie.setCustomValidity("wpisz imie i nazwisko")
+    }
+    if(email.value==""){
+        email.setCustomValidity("wpisz email")
+    }
+    if(ocena.value==""){
+        ocena.setCustomValidity("wpisz ocene 1-6")
+    }
+    if(data.value==""){
+        data.setCustomValidity("wpisz date i godzine")
+    }else
+    {
+        data.setCustomValidity("")
+    }
+})
+
+    </script>
+</body>
+</html>
